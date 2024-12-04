@@ -69,8 +69,16 @@
             animation: wordFadeIn 1s forwards;
         }
 
-        .message span:hover {
-            animation: glow 1s ease-in-out infinite alternate;
+        .message .word {
+            transition: text-shadow 0.3s ease;
+        }
+
+        .message .word:hover {
+            text-shadow: 0 0 10px #fff,
+                         0 0 20px #fff,
+                         0 0 30px #ff69b4,
+                         0 0 40px #ff69b4,
+                         0 0 50px #ff69b4;
         }
 
         .floating-heart {
