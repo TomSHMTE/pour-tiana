@@ -53,7 +53,7 @@
             font-family: 'Libre Baskerville', serif;
             font-style: italic;
             font-weight: 700;
-            font-size: 26px;
+            font-size: 22px;
             letter-spacing: 0.2px;
             line-height: 1.9;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -71,14 +71,17 @@
 
         .message .word {
             transition: text-shadow 0.3s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .message .word:hover {
+        .message .word:hover,
+        .message .word:active {
             text-shadow: 0 0 10px #fff,
                          0 0 20px #fff,
-                         0 0 30px #ff69b4,
-                         0 0 40px #ff69b4,
-                         0 0 50px #ff69b4;
+                         0 0 30px #89cff0,
+                         0 0 40px #89cff0,
+                         0 0 50px #89cff0;
         }
 
         .floating-heart {
