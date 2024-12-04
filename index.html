@@ -4,124 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pour Toi ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(45deg, #ff6b6b, #ffc3a0);
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/sunset.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+    z-index: -1;
+}
+
+        .sun {
+            position: fixed;
+            bottom: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: #ff7e5f;
+            border-radius: 50%;
+            box-shadow: 0 0 60px #ff7e5f,
+                       0 0 100px #feb47b,
+                       0 0 150px rgba(255, 166, 0, 0.8);
         }
 
         .container {
             text-align: center;
-            padding: 2rem;
-            max-width: 600px;
-            animation: fadeIn 2s ease-in;
-        }
-
-        .heart {
-            color: red;
-            font-size: 50px;
-            animation: pulse 1.5s infinite;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 800px;
             margin: 20px;
+            z-index: 1;
         }
 
         .message {
             color: white;
-            font-size: 24px;
-            line-height: 1.6;
-            margin: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 26px;
+            letter-spacing: 0.2px;
+            line-height: 1.9;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             opacity: 0;
-            animation: slideUp 1s ease-out forwards;
-            animation-delay: 0.5s;
-        }
-
-        .floating-hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .floating-heart {
-            position: absolute;
-            font-size: 20px;
-            animation: float 6s linear infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            animation: fadeIn 2s ease-out forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        @media (max-width: 600px) {
+            .message {
+                font-size: 22px;
+                line-height: 1.7;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px);
-                opacity: 0;
+            .container {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="sun"></div>
     <div class="container">
-        <div class="heart">❤️</div>
         <div class="message">
-            Mon amour pour toi grandit chaque jour.<br>
-            Tu es la plus belle chose qui me soit arrivée.<br>
-            Chaque moment passé avec toi est un trésor.<br>
-            Je t'aime infiniment. ❤️
+            Bordel qu'est ce que je t'aime<br>
+            je t'aime,<br>
+            je t'aime,<br>
+            je t'aime.<br>
+            J'aime la personne que tu es, j'aime l'odeur que tu as,<br>
+            j'aime passer du temps avec toi.<br>
+            Je te veux dans ma vie, pour toujours.<br>
+            Rien que toi et moi, et que ceux qui sont pas d'accord aille se faire voir.<br>
+            Je te promets qu'on va la vivre,<br>
+            notre putain de belle histoire. ❤️
         </div>
-        <div class="heart">❤️</div>
     </div>
-
-    <script>
-        function createFloatingHearts() {
-            const container = document.getElementById('floatingHearts');
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.className = 'floating-heart';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            container.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 6000);
-        }
-
-        setInterval(createFloatingHearts, 300);
-    </script>
 </body>
 </html>
