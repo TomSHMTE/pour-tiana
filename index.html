@@ -12,19 +12,18 @@
             box-sizing: border-box;
         }
 
-        body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('images/sunset.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.8;
-    z-index: -1;
-}
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('images/sunset.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
 
         .sun {
             position: fixed;
@@ -58,13 +57,72 @@
             letter-spacing: 0.2px;
             line-height: 1.9;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            animation: fadeIn 2s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .word.visible {
+            animation: wordFadeIn 1s forwards;
+        }
+
+        .message span:hover {
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        .floating-heart {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            animation: float 4s linear forwards;
+        }
+
+        @keyframes wordFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                            0 0 10px #fff,
+                            0 0 20px #fff,
+                            0 0 30px #ff69b4;
+            }
+            to {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                            0 0 20px #fff,
+                            0 0 30px #fff,
+                            0 0 40px #ff69b4;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--moveX), var(--moveY));
+                opacity: 0;
+            }
         }
 
         @media (max-width: 600px) {
@@ -81,7 +139,7 @@
 <body>
     <div class="sun"></div>
     <div class="container">
-        <div class="message">
+        <div class="message" id="message">
             Bordel qu'est ce que je t'aime<br>
             je t'aime,<br>
             je t'aime,<br>
@@ -94,5 +152,54 @@
             notre putain de belle histoire. ❤️
         </div>
     </div>
+
+    <script>
+        // Animation des mots
+        const messageDiv = document.getElementById('message');
+        const text = messageDiv.innerHTML;
+        let newHtml = '';
+        
+        text.split('<br>').forEach((line, lineIndex) => {
+            const words = line.trim().split(' ');
+            words.forEach((word, wordIndex) => {
+                newHtml += `<span class="word">${word}</span> `;
+            });
+            newHtml += '<br>';
+        });
+
+        messageDiv.innerHTML = newHtml;
+
+        const words = document.querySelectorAll('.word');
+        words.forEach((word, index) => {
+            setTimeout(() => {
+                word.classList.add('visible');
+            }, index * 200);
+        });
+
+        // Animation des cœurs flottants
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'floating-heart';
+            
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            const moveX = (Math.random() - 0.5) * 200;
+            const moveY = -Math.random() * 200;
+            
+            heart.style.left = startX + 'px';
+            heart.style.top = startY + 'px';
+            heart.style.setProperty('--moveX', moveX + 'px');
+            heart.style.setProperty('--moveY', moveY + 'px');
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
